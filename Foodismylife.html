@@ -1,0 +1,1974 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="xla1.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <link rel="stylesheet" href="20231229_3(홈상단버튼)-2.css">
+
+    <style>
+        #popup {
+            display: none;
+            position: fixed;
+            width: auto;
+            height: 30vh;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            border: 2px solid #333;
+            background-color: #fff;
+            z-index: 999;
+            font-family: Arial, sans-serif;
+        }
+
+        #popupImage {
+            width: auto;
+            height: 25vh;
+            border: 2px solid #F7E600;
+        }
+    </style>
+    <title>Food Is My Life</title>
+</head>
+<style>
+    html {
+        height: 100vh;
+        width: 100vw;
+        background-color: white;
+    }
+
+    .divinput {
+        display: inline;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .divsearch {
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .fil {
+        height: 20%;
+        width: 20%;
+        display: inline;
+        position: relative;
+        top: 50px;
+        left: 50px;
+        margin-right: 15%;
+        cursor: pointer;
+    }
+
+    #attachButton {
+        height: 3em;
+        width: 3em;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        background-color: white;
+        border-color: black;
+        border-radius: 25px;
+        cursor: pointer;
+    }
+
+    #searchInput {
+        height: 5vh;
+        width: 25vw;
+        border: none;
+        border-radius: 25px;
+        padding-left: 20px;
+        font-size: 1em;
+        font-weight: bold;
+        font-family: 'Arial', sans-serif;
+        color: rgb(0, 0, 0);
+        margin: 0px 10px 0px 0px;
+        background-color: #f0f0f0;
+    }
+
+    #searchButton {
+        height: 4vh;
+        width: 4vw;
+        background-color: white;
+        border: 1px #333c;
+        border-radius: 25px;
+        cursor: pointer;
+    }
+
+    input::placeholder {
+        color: gray;
+        font-size: 1em;
+        font-style: normal;
+        font-weight: bold;
+        text-align: left;
+    }
+
+
+    .material-symbols-outlined {
+        font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 32;
+        background-color: #fff;
+        color: #333;
+    }
+
+    #resultContainer {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        background-color: #fff;
+    }
+
+    .resultRow {
+        margin-bottom: 10px;
+        white-space: pre-line;
+        text-align: justify;
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .menu-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+        background-color: #333;
+        color: #fff;
+    }
+
+    .menu-btn {
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 5px;
+        display: inline;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        left: 5%;
+    }
+
+    #ggmenu {
+        font-size: 50px;
+        color: #fff;
+        background-color: #333;
+    }
+
+    .bar {
+        width: 30px;
+        height: 3px;
+        background-color: #fff;
+        margin: 6px 0;
+    }
+
+    .menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: none;
+    }
+
+    .menu li {
+        padding: 10px;
+        border-bottom: 1px solid #555;
+    }
+
+    .menu a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 16px;
+    }
+
+    .menu-btn.active+.menu {
+        display: inline-flex;
+        flex-direction: column;
+        position: absolute;
+        top: 258px;
+        left: 5%;
+        background-color: #333;
+        width: 10%;
+        height: 20%;
+    }
+
+    .region {
+        background-color: #333;
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        color: #fff;
+        font-size: 1em;
+        cursor: pointer;
+    }
+
+    .region:active {
+        background-color: #fff;
+        color: #333;
+    }
+
+    .today {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    #image-container {
+        margin-top: 20px;
+    }
+
+    @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 1.7;
+        color: #000000;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+        overflow-x: none;
+    }
+
+    p {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.7;
+        color: #fff;
+        margin: 0;
+    }
+
+    .section-fluid-main {
+        position: relative;
+        display: block;
+        overflow: hidden;
+        width: calc(100% - 40px);
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+        max-width: 50vw;
+        padding: 60px 60px;
+
+    }
+
+    .section-row {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .section-row:hover .section-col {
+        opacity: 0.1;
+    }
+
+    .section-col {
+        position: relative;
+        width: 100%;
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+        transition: opacity 250ms linear;
+        border: none;
+    }
+
+    .section-row .section-col:hover {
+        opacity: 1;
+    }
+
+    .section {
+        position: relative;
+        display: block;
+        width: 100%;
+        overflow: hidden;
+        cursor: pointer;
+        padding: none;
+    }
+
+    .section-in {
+        position: relative;
+        display: block;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .section-in img {
+        display: block;
+        width: 100%;
+        height: auto;
+        transition: transform 250ms linear;
+    }
+
+    .section-col:hover .section-in img {
+        transform: scale(1.1) rotate(-3deg);
+    }
+
+    .hover-text {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 100;
+        pointer-events: none;
+        display: -webkit-inline-flex;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -webkit-align-items: center;
+        -moz-align-items: center;
+        -ms-align-items: center;
+        align-items: center;
+        -webkit-justify-content: center;
+        -moz-justify-content: center;
+        -ms-justify-content: center;
+        justify-content: center;
+        -ms-flex-pack: center;
+        text-align: center;
+        -ms-flex-item-align: center;
+        align-self: center;
+        mix-blend-mode: difference;
+    }
+
+    .hover-text h2 {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 800;
+        font-size: 8vw;
+        line-height: 1;
+        color: #fff;
+        opacity: 0;
+        transform: scale(0.8);
+        transition: transform 250ms linear, opacity 250ms ease;
+    }
+
+    .section-col:hover+.hover-text h2 {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .logo {
+        position: fixed;
+        top: 25px;
+        left: 25px;
+        display: block;
+        z-index: 1000;
+        transition: all 250ms linear;
+    }
+
+    .logo img {
+        height: 26px;
+        width: auto;
+        display: block;
+        transition: filter 250ms 700ms linear;
+    }
+
+    @media (max-width: 767px) {
+        .section-col {
+            -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+
+        .hover-text h2 {
+            font-size: 12vw;
+        }
+    }
+
+    .frmaebtn {
+        width: auto;
+        height: auto;
+        color: #fff;
+        font-size: 2rem;
+        display: inline;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .frame {
+        width: 90%;
+        margin: 0% auto;
+        text-align: center;
+    }
+
+    button {
+        margin: 0px;
+        outline: none;
+    }
+
+    .custom-btn {
+        width: 80px;
+        height: 40px;
+        padding: 10px 25px;
+        border: 0px solid #333;
+        font-family: 'Lato', sans-serif;
+        font-weight: 500;
+        background: transparent;
+        cursor: pointer;
+        transition: all 0.5s ease;
+        position: relative;
+        display: inline-block;
+        color: #fff;
+    }
+
+    .btn-1 {
+        transition: all 0.3s ease;
+    }
+
+    .btn-1:hover {
+        box-shadow:
+            -7px -7px 20px 0px #fff9,
+            -4px -4px 5px 0px #fff9,
+            7px 7px 20px 0px #0002,
+            4px 4px 5px 0px #0001;
+    }
+
+    .btn-2:after {
+        position: absolute;
+        content: "";
+        top: 5px;
+        left: 6px;
+        width: 90%;
+        height: 70%;
+        border: 1px solid #fff;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .btn-2:hover:after {
+        opacity: 1;
+    }
+
+    .btn-3 {
+        line-height: 39px;
+        padding: 0;
+    }
+
+    .btn-3:hover {
+        background: transparent;
+        color: #fff;
+    }
+
+    .btn-3 span {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    .btn-3:before,
+    .btn-3:after {
+        position: absolute;
+        content: "";
+        left: 0;
+        top: 0;
+        background: #fff;
+        transition: all 0.3s ease;
+    }
+
+    .btn-3:before {
+        height: 0%;
+        width: 2px;
+    }
+
+    .btn-3:after {
+        width: 0%;
+        height: 2px;
+    }
+
+    .btn-3:hover:before {
+        height: 100%;
+    }
+
+    .btn-3:hover:after {
+        width: 100%;
+    }
+
+    .btn-3 span:before,
+    .btn-3 span:after {
+        position: absolute;
+        content: "";
+        right: 0;
+        bottom: 0;
+        background: #fff;
+        transition: all 0.3s ease;
+    }
+
+    .btn-3 span:before {
+        width: 2px;
+        height: 0%;
+    }
+
+    .btn-3 span:after {
+        width: 0%;
+        height: 2px;
+    }
+
+    .btn-3 span:hover:before {
+        height: 100%;
+    }
+
+    .btn-3 span:hover:after {
+        width: 100%;
+    }
+
+    .btn-4 {
+        position: relative;
+        color: #fff;
+        z-index: 2;
+        line-height: 40px;
+        padding: 0;
+    }
+
+    .btn-4:hover {
+        border: none;
+    }
+
+    .btn-4:before,
+    .btn-4:after {
+        position: absolute;
+        content: "";
+        width: 0%;
+        height: 0%;
+        border: 2px solid;
+        z-index: -1;
+        transition: all 0.3s ease;
+    }
+
+    .btn-4:before {
+        top: 0;
+        left: 0;
+        border-bottom-color: transparent;
+        border-right-color: transparent;
+        border-top-color: #fff;
+        border-left-color: #fff;
+    }
+
+    .btn-4:after {
+        bottom: 0;
+        right: 0;
+        border-top-color: transparent;
+        border-left-color: transparent;
+        border-bottom-color: #fff;
+        border-right-color: #fff;
+    }
+
+    .btn-4:hover:before,
+    .btn-4:hover:after {
+        border-color: #fff;
+        height: 100%;
+        width: 100%;
+    }
+
+    .btn-5 {
+        background: #333;
+        color: #fff;
+        line-height: 42px;
+        padding: 0;
+        border: none;
+    }
+
+    .btn-5:hover {
+        background: transparent;
+        color: #fff;
+        box-shadow:
+            -7px -7px 20px 0px #fff9,
+            -4px -4px 5px 0px #fff9,
+            7px 7px 20px 0px #0002,
+            4px 4px 5px 0px #0001;
+    }
+
+    .btn-5:before,
+    .btn-5:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 2px;
+        width: 0;
+        background: #fff;
+        transition: 400ms ease all;
+    }
+
+    .btn-5:after {
+        right: inherit;
+        top: inherit;
+        left: 0;
+        bottom: 0;
+    }
+
+    .btn-5:hover:before,
+    .btn-5:hover:after {
+        width: 100%;
+        transition: 800ms ease all;
+    }
+
+    .btn-6 {
+        background: #333;
+        color: #fff;
+        line-height: 42px;
+        padding: 0;
+        border: none;
+    }
+
+    .btn-6 span {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    .btn-6:before,
+    .btn-6:after {
+        position: absolute;
+        content: "";
+        height: 0%;
+        width: 2px;
+        background: #333;
+    }
+
+    .btn-6:before {
+        right: 0;
+        top: 0;
+        transition: all 500ms ease;
+    }
+
+    .btn-6:after {
+        left: 0;
+        bottom: 0;
+        transition: all 500ms ease;
+    }
+
+    .btn-6:hover {
+        color: #333;
+        background: transparent;
+    }
+
+    .btn-6:hover:before {
+        transition: all 500ms ease;
+        height: 100%;
+    }
+
+    .btn-6:hover:after {
+        transition: all 500ms ease;
+        height: 100%;
+    }
+
+    .btn-6 span:before,
+    .btn-6 span:after {
+        position: absolute;
+        content: "";
+        background: #333;
+    }
+
+    .btn-6 span:before {
+        left: 0;
+        top: 0;
+        width: 0%;
+        height: 2px;
+        transition: all 500ms ease;
+    }
+
+    .btn-6 span:after {
+        right: 0;
+        bottom: 0;
+        width: 0%;
+        height: 2px;
+        transition: all 500ms ease;
+    }
+
+    .btn-6 span:hover:before {
+        width: 100%;
+    }
+
+    .btn-6 span:hover:after {
+        width: 100%;
+    }
+
+    .btn-7 {
+        background: #333;
+        color: #fff;
+        line-height: 42px;
+        padding: 0;
+        border: none;
+        z-index: 1;
+        -webkit-transition: all 0.3s linear;
+        transition: all 0.3s linear;
+    }
+
+    .btn-7:hover {
+        background: transparent;
+        color: #333;
+    }
+
+    .btn-7:before,
+    .btn-7:after {
+        position: absolute;
+        content: "";
+        left: 0;
+        width: 100%;
+        height: 50%;
+        right: 0;
+        z-index: -1;
+        background: #333;
+        transition: all 0.3s ease;
+    }
+
+    .btn-7:before {
+        top: 0;
+    }
+
+    .btn-7:after {
+        bottom: 0;
+    }
+
+    .btn-7:hover:before,
+    .btn-7:hover:after {
+        height: 0;
+        background-color: #333;
+    }
+
+    .btn-8 {
+        line-height: 40px;
+        padding: 0;
+        background: transparent;
+        position: relative;
+        z-index: 2;
+        color: #fff;
+        -webkit-perspective: 300px;
+        perspective: 300px;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+
+    .btn-8:hover {
+        color: #fff;
+    }
+
+    .btn-8:after {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #333;
+        z-index: -1;
+        -webkit-transform-origin: center bottom;
+        transform-origin: center bottom;
+        -webkit-transform: rotateX(0);
+        transform: rotateX(0);
+        transition: all 0.3s ease;
+    }
+
+    .btn-8:hover:after {
+        -webkit-transform: rotateX(-180deg);
+        transform: rotateX(-180deg);
+    }
+
+    .btn-9 {
+        z-index: 2;
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+
+    .btn-9:after {
+        position: absolute;
+        content: " ";
+        z-index: -1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .btn-9:hover {
+        box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, .5),
+            -4px -4px 6px 0 rgba(116, 125, 136, .2),
+            inset -4px -4px 6px 0 rgba(255, 255, 255, .5),
+            inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
+        color: #fff;
+    }
+
+    .btn-9:hover:after {
+        -webkit-transform: scale(2) rotate(180deg);
+        transform: scale(2) rotate(180deg);
+        background: #333;
+        box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, .5),
+            -4px -4px 6px 0 rgba(116, 125, 136, .2),
+            inset -4px -4px 6px 0 rgba(255, 255, 255, .5),
+            inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
+    }
+
+    .btn-10 {
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+
+    .btn-10:after {
+        position: absolute;
+        content: " ";
+        top: 0;
+        left: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        transition: all 0.3s ease;
+        -webkit-transform: scale(.1);
+        transform: scale(.1);
+    }
+
+    .btn-10:hover {
+        color: #fff;
+    }
+
+    .btn-10:hover:after {
+        background: #333;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    .btn-11 {
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .btn-11:hover {
+        background: #333;
+        color: #fff;
+    }
+
+    .btn-11:before {
+        position: absolute;
+        content: '';
+        display: inline-block;
+        top: -180px;
+        left: 0;
+        width: 30px;
+        height: 100%;
+        background-color: #fff;
+        animation: shiny-btn1 3s ease-in-out infinite;
+    }
+
+    .btn-11:active {
+        box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, .3),
+            -4px -4px 6px 0 rgba(116, 125, 136, .2),
+            inset -4px -4px 6px 0 rgba(255, 255, 255, .2),
+            inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
+    }
+
+    @-webkit-keyframes shiny-btn1 {
+        0% {
+            -webkit-transform: scale(0) rotate(45deg);
+            opacity: 0;
+        }
+
+        80% {
+            -webkit-transform: scale(0) rotate(45deg);
+            opacity: 0.5;
+        }
+
+        81% {
+            -webkit-transform: scale(4) rotate(45deg);
+            opacity: 1;
+        }
+
+        100% {
+            -webkit-transform: scale(50) rotate(45deg);
+            opacity: 0;
+        }
+    }
+
+    .btn-12 {
+        position: relative;
+        right: 20px;
+        bottom: 20px;
+        border: none;
+        width: 130px;
+        height: 40px;
+        line-height: 40px;
+        -webkit-perspective: 230px;
+        perspective: 230px;
+    }
+
+    .btn-12 span {
+        display: block;
+        position: absolute;
+        width: 130px;
+        height: 40px;
+        border: 2px solid #333;
+        margin: 0;
+        text-align: center;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-transition: all .3s;
+        transition: all .3s;
+    }
+
+    .btn-12 span:nth-child(1) {
+        box-shadow:
+            -7px -7px 20px 0px #fff9,
+            -4px -4px 5px 0px #fff9,
+            7px 7px 20px 0px #0002,
+            4px 4px 5px 0px #0001;
+        -webkit-transform: rotateX(90deg);
+        -moz-transform: rotateX(90deg);
+        transform: rotateX(90deg);
+        -webkit-transform-origin: 50% 50% -20px;
+        -moz-transform-origin: 50% 50% -20px;
+        transform-origin: 50% 50% -20px;
+    }
+
+    .btn-12 span:nth-child(2) {
+        -webkit-transform: rotateX(0deg);
+        -moz-transform: rotateX(0deg);
+        transform: rotateX(0deg);
+        -webkit-transform-origin: 50% 50% -20px;
+        -moz-transform-origin: 50% 50% -20px;
+        transform-origin: 50% 50% -20px;
+    }
+
+    .btn-12:hover span:nth-child(1) {
+        -webkit-transform: rotateX(0deg);
+        -moz-transform: rotateX(0deg);
+        transform: rotateX(0deg);
+    }
+
+    .btn-12:hover span:nth-child(2) {
+        background: #e0e5ec;
+        color: #e0e5ec;
+        -webkit-transform: rotateX(-90deg);
+        -moz-transform: rotateX(-90deg);
+        transform: rotateX(-90deg);
+    }
+
+    .btn-13 {
+        background: #333;
+        color: #fff;
+        z-index: 1;
+    }
+
+    .btn-13:after {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        background: #e0e5ec;
+        transition: all 0.3s ease;
+    }
+
+    .btn-13:hover {
+        color: #fff;
+    }
+
+    .btn-13:hover:after {
+        top: 0;
+        height: 100%;
+    }
+
+    .btn-13:active {
+        top: 2px;
+    }
+
+    .btn-14 {
+        background: #333;
+        color: #fff;
+        z-index: 1;
+    }
+
+    .btn-14:after {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 0;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        background: #e0e5ec;
+        transition: all 0.3s ease;
+    }
+
+    .btn-14:hover {
+        color: #fff;
+    }
+
+    .btn-14:hover:after {
+        top: auto;
+        bottom: 0;
+        height: 100%;
+    }
+
+    .btn-14:active {
+        top: 2px;
+    }
+
+    .btn-15 {
+        background: #333;
+        color: #fff;
+        z-index: 1;
+    }
+
+    .btn-15:after {
+        position: absolute;
+        content: "";
+        width: 0;
+        height: 100%;
+        top: 0;
+        right: 0;
+        z-index: -1;
+        background: #e0e5ec;
+        transition: all 0.3s ease;
+    }
+
+    .btn-15:hover {
+        color: #fff;
+    }
+
+    .btn-15:hover:after {
+        left: 0;
+        width: 100%;
+    }
+
+    .btn-15:active {
+        top: 2px;
+    }
+
+    .btn-16 {
+        background: #333;
+        color: #fff;
+        z-index: 1;
+    }
+
+    .btn-16:after {
+        position: absolute;
+        content: "";
+        width: 0;
+        height: 100%;
+        top: 0;
+        left: 0;
+        direction: rtl;
+        z-index: -1;
+        background: #e0e5ec;
+        transition: all 0.3s ease;
+    }
+
+    .btn-16:hover {
+        color: #fff;
+    }
+
+    .btn-16:hover:after {
+        left: auto;
+        right: 0;
+        width: 100%;
+    }
+
+    .btn-16:active {
+        top: 2px;
+    }
+
+    #ptoday {
+        text-align: center;
+        font-size: large;
+        font-weight: bold;
+        color: #3000ff;
+    }
+
+    #scrollBtn {
+        width: 4em;
+        height: 4em;
+
+        text-align: center;
+        font-size: large;
+        font-weight: bold;
+
+        display: none;
+        position: fixed;
+        bottom: 45%;
+        right: 2%;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 25%;
+        padding: 10px 10px;
+        cursor: pointer;
+    }
+
+    .db {
+        border: none;
+        background-color: #fff;
+    }
+</style>
+
+<body>
+
+    <div><input type="file" id="fileInput" style="display: none;">
+        <button id="attachButton" onclick="attachFile()"><span class="material-symbols-outlined">
+                file_open
+            </span></button>
+    </div>
+    <div class="divinput"><img class="fil" src="로고!.png" onclick="clearOutput()">
+        <div class="divsearch"><span class="search"><input type="text" id="searchInput" placeholder="검색어를 입력해 주세요."
+                    onkeyup="handleKeyPress(event)">
+                <button id="searchButton" onclick="searchAndDisplay()"><span class="material-symbols-outlined">
+                        search
+                    </span></button></span>
+        </div>
+    </div>
+    <br>
+
+    <div class="menu-container">
+        <button class="menu-btn" id="menuBtn">
+            <span id="ggmenu" class="material-symbols-outlined">
+                menu
+            </span>
+        </button>
+
+
+        <ul class="menu" id="menu">
+            <button class="region" id="displayTDButton">
+                <li style="text-align: center;">서 울</li>
+            </button>
+            <button class="region" id="displayDCButton">
+                <li style="text-align: center;">인 천</li>
+            </button>
+            <button class="region" id="displayRDEButton">
+                <li style="text-align: center;">강원도</li>
+            </button>
+            <button class="region" id="displayRREButton">
+                <li style="text-align: center;">경기도</li>
+            </button>
+            <button class="region" id="displayCCEButton">
+                <li style="text-align: center;">충청도</li>
+            </button>
+            <button class="region" id="displayWFEButton">
+                <li style="text-align: center;">전라도</li>
+            </button>
+            <button class="region" id="displayRTEButton">
+                <li style="text-align: center;">경상도</li>
+            </button>
+            <button class="region" id="displayWWEButton">
+                <li style="text-align: center;">제주도</li>
+            </button>
+        </ul>
+
+        <header>
+            <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap"
+                rel="stylesheet">
+        </header>
+
+        <v class="frame">
+            <div class="framebtn">
+                <button id="reset" class="custom-btn btn-3" onclick="clearOutput()"><span>HOME</span></button>
+                <button id="displayHs" class="custom-btn btn-3"><span>한식</span></button>
+                <button id="displayIs" class="custom-btn btn-3"><span>일식</span></button>
+                <button id="displayJs" class="custom-btn btn-3"><span>중식</span></button>
+                <button id="displayYs" class="custom-btn btn-3"><span>양식</span></button>
+                <button id="displayBs" class="custom-btn btn-3"><span>분식</span></button>
+                <button id="displayDs" class="custom-btn btn-3"><span>디저트</span></button>
+                <button id="displayCC" class="custom-btn btn-3" onclick="openNewWindow()"><span>뭐 먹지?</span></button>
+            </div>
+    </div>
+
+    <div id="resultContainer"></div>
+
+    <button onclick="scrollToTop()" id="scrollBtn" title="Go to top">TOP</button>
+
+    <script src="script.js"></script>
+
+    <div id="popup">
+        <div id="ptoday">오늘의 추천 메뉴는 두구 두구 ♥</div>
+        <img id="popupImage" alt="Random Image">
+        <br>
+        <label>
+            <input type="checkbox" id="closeCheckbox"> 10분동안 창 열지 않음
+        </label>
+    </div>
+    <script>
+
+        window.onscroll = function () {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            var scrollBtn = document.getElementById("scrollBtn");
+
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollBtn.style.display = "block";
+            } else {
+                scrollBtn.style.display = "none";
+            }
+        }
+
+        function scrollToTop() {
+            document.body.scrollTop = 0; // 사파리
+            document.documentElement.scrollTop = 0; // 크롬, 파이어폭스, 엣지, 오페라
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            var images = ['akfkxkd.png', 'aldurrnr.png', 'chqkq.png', 'clzls.png', 'dkdk.png', 'ehsrktm.png'
+                , 'EjrqhRdl.png', 'ekfrRhcl.png', 'fkaus.png', 'ghl.png', 'goaqjrj.png', 'qlqlaqkq.png', 'rlaclWlro.png'
+                , 'rlavlxkd.png', 'rnrqkq.png', 'sodaus.png', 'tkarPxkd.png', 'tkaruqtkf.png', 'tosemdnlcl.png', 'vktmxk.png'
+                , 'vlwk.png', 'whrqkf.png', 'Wkwkdaus.png', 'zkfrnrtn.png'];
+
+            function showPopup() {
+                var popup = document.getElementById('popup');
+                var popupImage = document.getElementById('popupImage');
+                var closeCheckbox = document.getElementById('closeCheckbox');
+
+                var randomIndex = Math.floor(Math.random() * images.length);
+                var randomImage = images[randomIndex];
+
+                popupImage.src = randomImage;
+
+                popup.style.display = 'block';
+
+                closeCheckbox.addEventListener('change', function () {
+
+                    if (closeCheckbox.checked) {
+
+                        popup.style.display = 'none';
+
+                        setTimeout(function () {
+                            showPopup();
+                        }, 600000);
+                    }
+                });
+            }
+            showPopup();
+        });
+    </script>
+
+    <script>
+        function handleKeyPress(event) {
+
+            if (event.keyCode === 13) {
+
+                searchAndDisplay();
+            }
+        }
+
+        let excelData;
+
+
+        var fileInput = document.getElementById('fileInput');
+
+
+        fileInput.addEventListener('change', handleFile);
+
+        function attachFile() {
+
+            fileInput.click();
+        }
+
+        function handleFile(e) {
+            const file = e.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+                    excelData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+
+                    document.getElementById('attachButton').style.display = 'none';
+                };
+
+                reader.readAsArrayBuffer(file);
+            }
+        }
+
+        function displayFilteredRow(row) {
+
+            const filteredRow = row.filter(cell => isNaN(cell));
+
+            if (filteredRow.length > 0) {
+                return filteredRow.join('\t');
+            }
+            return '';
+        }
+
+        function displayDataWithLinks(data) {
+
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.innerHTML = '';
+
+            for (let i = 0; i < data.length; i++) {
+                const row = data[i];
+
+                const processedRow = row.map(cell => {
+                    if (cell.startsWith('https://')) {
+                        return `<a href="${cell}" target="_blank">지도</a>`;
+                    }
+                    return cell;
+                });
+
+                const resultRow = displayFilteredRow(processedRow);
+                if (resultRow !== '') {
+                    const rowElement = document.createElement('div');
+                    rowElement.className = 'resultRow';
+                    rowElement.innerHTML = resultRow;
+                    resultContainer.appendChild(rowElement);
+                }
+            }
+        }
+
+        function searchAndDisplay() {
+
+            const keyword = document.getElementById('searchInput').value.toLowerCase();
+
+            if (excelData && keyword) {
+
+                const matchingRows = excelData.filter(row =>
+                    row.some(cell => cell.toLowerCase().includes(keyword))
+                );
+
+                if (matchingRows.length > 0) {
+
+                    console.log(`"${keyword}"를 포함하는 행:`);
+                    displayDataWithLinks(matchingRows);
+                } else {
+
+                    console.log(`"${keyword}"를 포함하는 행을 찾을 수 없습니다.`);
+                }
+            } else {
+
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+    </script>
+
+    <div class="section-fluid-main">
+
+        <div class="section-row">
+
+            <div class="section-col"><button class="db" id="displayHsButton">
+                    <div class="section">
+                        <div class="section-in">
+                            <img src="210.PNG">
+                        </div>
+                    </div>
+            </div></button>
+            <div class="hover-text">
+                <h2>한식</h2>
+            </div>
+
+            <div class="section-col"><button class="db" id="displayIsButton">
+                    <div class="section">
+                        <div class="section-in">
+                            <img src="356.PNG">
+                        </div>
+                    </div>
+            </div></button>
+            <div class="hover-text">
+                <h2>일식</h2>
+            </div>
+
+            <div class="section-col"><button class="db" id="displayJsButton">
+                    <div class="section">
+                        <div class="section-in">
+                            <img src="985.PNG">
+                        </div>
+                    </div>
+            </div></button>
+            <div class="hover-text">
+                <h2>중식</h2>
+            </div>
+
+            <div class="section-col"><button class="db" id="displayYsButton">
+                    <div class="section">
+                        <div class="section-in">
+                            <img src="456.PNG">
+                        </div>
+                    </div>
+            </div></button>
+            <div class="hover-text">
+                <h2>양식</h2>
+            </div>
+
+            <div class="section-col"><button class="db" id="displayBsButton">
+                    <div class="section">
+                        <div class="section-in">
+                            <img src="634.PNG">
+                        </div>
+                    </div>
+            </div></button>
+            <div class="hover-text">
+                <h2>분식</h2>
+            </div>
+
+            <div class="section-col"><button class="db" id="displayDsButton">
+                    <div class="section">
+                        <div class="section-in">
+                            <img src="946.PNG">
+                        </div>
+                    </div>
+            </div></button>
+            <div class="hover-text">
+                <h2>디저트</h2>
+            </div>
+
+
+        </div>
+
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuBtn = document.getElementById('menuBtn');
+            const menu = document.getElementById('menu');
+
+            menuBtn.addEventListener('click', function () {
+                menuBtn.classList.toggle('active');
+                menu.classList.toggle('active');
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const displayHsButton = document.getElementById('displayHsButton');
+
+
+            displayHsButton.addEventListener('click', function () {
+                displayHsRows();
+            });
+        });
+
+        function displayHsRows() {
+            const keyword = '한식';
+
+            if (excelData) {
+
+                const HsRows = excelData.filter(row =>
+                    row.some(cell => cell.includes(keyword))
+                );
+
+                displayDataWithLinksAndNoNumbers(HsRows);
+            } else {
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const displayHsButton = document.getElementById('displayHs');
+
+
+            displayHsButton.addEventListener('click', function () {
+                displayHsRows();
+            });
+        });
+
+        function displayHsRows() {
+            const keyword = '한식';
+
+            if (excelData) {
+
+                const HsRows = excelData.filter(row =>
+                    row.some(cell => cell.includes(keyword))
+                );
+
+                displayDataWithLinksAndNoNumbers(HsRows);
+            } else {
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const displayIsButton = document.getElementById('displayIsButton');
+
+            displayIsButton.addEventListener('click', function () {
+                displayIsRows();
+            });
+        });
+
+        function displayIsRows() {
+            const keyword = '일식';
+
+            if (excelData) {
+
+                const IsRows = excelData.filter(row =>
+                    row.some(cell => cell.includes(keyword))
+                );
+
+                displayDataWithLinksAndNoNumbers(IsRows);
+            } else {
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const displayIsButton = document.getElementById('displayIs');
+
+            displayIsButton.addEventListener('click', function () {
+                displayIsRows();
+            });
+        });
+
+        function displayIsRows() {
+            const keyword = '일식';
+
+            if (excelData) {
+
+                const IsRows = excelData.filter(row =>
+                    row.some(cell => cell.includes(keyword))
+                );
+
+                displayDataWithLinksAndNoNumbers(IsRows);
+            } else {
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const displayJsButton = document.getElementById('displayJsButton');
+
+            displayJsButton.addEventListener('click', function () {
+                displayJsRows();
+            });
+        });
+
+        function displayJsRows() {
+            const keyword = '중식';
+
+            if (excelData) {
+
+                const JsRows = excelData.filter(row =>
+                    row.some(cell => cell.includes(keyword))
+                );
+
+
+                displayDataWithLinksAndNoNumbers(JsRows);
+            } else {
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const displayJsButton = document.getElementById('displayJs');
+
+            displayJsButton.addEventListener('click', function () {
+                displayJsRows();
+            });
+        });
+
+        function displayJsRows() {
+            const keyword = '중식';
+
+            if (excelData) {
+
+                const JsRows = excelData.filter(row =>
+                    row.some(cell => cell.includes(keyword))
+                );
+
+                displayDataWithLinksAndNoNumbers(JsRows);
+            } else {
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const displayYsButton = document.getElementById('displayYsButton');
+
+            displayYsButton.addEventListener('click', function () {
+                displayYsRows();
+            });
+        });
+
+        function displayYsRows() {
+            const keyword = '양식';
+
+            if (excelData) {
+
+                const YsRows = excelData.filter(row =>
+                    row.some(cell => cell.includes(keyword))
+                );
+
+                displayDataWithLinksAndNoNumbers(YsRows);
+            } else {
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const displayYsButton = document.getElementById('displayYs');
+
+            displayYsButton.addEventListener('click', function () {
+                displayYsRows();
+            });
+        });
+
+        function displayYsRows() {
+            const keyword = '양식';
+
+            if (excelData) {
+
+                const YsRows = excelData.filter(row =>
+                    row.some(cell => cell.includes(keyword))
+                );
+
+                displayDataWithLinksAndNoNumbers(YsRows);
+            } else {
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const displayBsButton = document.getElementById('displayBsButton');
+
+            displayBsButton.addEventListener('click', function () {
+                displayBsRows();
+            });
+        });
+
+        function displayBsRows() {
+            const keyword = '분식';
+
+            if (excelData) {
+
+                const BsRows = excelData.filter(row =>
+                    row.some(cell => cell.includes(keyword))
+                );
+
+                displayDataWithLinksAndNoNumbers(BsRows);
+            } else {
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const displayBsButton = document.getElementById('displayBs');
+
+            displayBsButton.addEventListener('click', function () {
+                displayBsRows();
+            });
+        });
+
+        function displayBsRows() {
+            const keyword = '분식';
+
+            if (excelData) {
+
+                const BsRows = excelData.filter(row =>
+                    row.some(cell => cell.includes(keyword))
+                );
+
+                displayDataWithLinksAndNoNumbers(BsRows);
+            } else {
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const displayDsButton = document.getElementById('displayDsButton');
+
+            displayDsButton.addEventListener('click', function () {
+                displayDsRows();
+            });
+        });
+
+        function displayDsRows() {
+            const keyword = '디저트';
+
+            if (excelData) {
+
+                const DsRows = excelData.filter(row =>
+                    row.some(cell => cell.includes(keyword))
+                );
+
+                displayDataWithLinksAndNoNumbers(DsRows);
+            } else {
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const displayDsButton = document.getElementById('displayDs');
+
+            displayDsButton.addEventListener('click', function () {
+                displayDsRows();
+            });
+        });
+
+        function displayDsRows() {
+            const keyword = '디저트';
+
+            if (excelData) {
+
+                const DsRows = excelData.filter(row =>
+                    row.some(cell => cell.includes(keyword))
+                );
+
+                displayDataWithLinksAndNoNumbers(DsRows);
+            } else {
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const displayTDButton = document.getElementById('displayTDButton');
+
+            displayTDButton.addEventListener('click', function () {
+                displayTDRows();
+            });
+        });
+
+        function displayTDRows() {
+            const keyword = '서울';
+
+            if (excelData) {
+
+                const TDRows = excelData.filter(row =>
+                    row.some(cell => cell.includes(keyword))
+                );
+
+                displayDataWithLinksAndNoNumbers(TDRows);
+            } else {
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const displayDCButton = document.getElementById('displayDCButton');
+
+            displayDCButton.addEventListener('click', function () {
+                displayDCRows();
+            });
+        });
+
+        function displayDCRows() {
+            const keyword = '인천';
+
+            if (excelData) {
+
+                const DCRows = excelData.filter(row =>
+                    row.some(cell => cell.includes(keyword))
+                );
+
+                displayDataWithLinksAndNoNumbers(DCRows);
+            } else {
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const displayRDEButton = document.getElementById('displayRDEButton');
+
+            displayRDEButton.addEventListener('click', function () {
+                displayRDERows();
+            });
+        });
+
+        function displayRDERows() {
+            const keyword = '강원';
+
+            if (excelData) {
+
+                const RDERows = excelData.filter(row =>
+                    row.some(cell => cell.includes(keyword))
+                );
+
+                displayDataWithLinksAndNoNumbers(RDERows);
+            } else {
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const displayRREButton = document.getElementById('displayRREButton');
+
+            displayRREButton.addEventListener('click', function () {
+                displayRRERows();
+            });
+        });
+
+        function displayRRERows() {
+            const keyword = '경기';
+
+            if (excelData) {
+
+                const RRERows = excelData.filter(row =>
+                    row.some(cell => cell.includes(keyword))
+                );
+
+                displayDataWithLinksAndNoNumbers(RRERows);
+            } else {
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const displayCCEButton = document.getElementById('displayCCEButton');
+
+            displayCCEButton.addEventListener('click', function () {
+                displayCCERows();
+            });
+        });
+
+        function displayCCERows() {
+            const keyword = '충청';
+
+            if (excelData) {
+
+                const CCERows = excelData.filter(row =>
+                    row.some(cell => cell.includes(keyword))
+                );
+
+                displayDataWithLinksAndNoNumbers(CCERows);
+            } else {
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const displayWFEButton = document.getElementById('displayWFEButton');
+
+            displayWFEButton.addEventListener('click', function () {
+                displayWFERows();
+            });
+        });
+
+        function displayWFERows() {
+            const keyword = '전라';
+
+            if (excelData) {
+
+                const WFERows = excelData.filter(row =>
+                    row.some(cell => cell.includes(keyword))
+                );
+
+                displayDataWithLinksAndNoNumbers(WFERows);
+            } else {
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const displayRTEButton = document.getElementById('displayRTEButton');
+
+            displayRTEButton.addEventListener('click', function () {
+                displayRTERows();
+            });
+        });
+
+        function displayRTERows() {
+            const keyword = '경상';
+
+            if (excelData) {
+
+                const RTERows = excelData.filter(row =>
+                    row.some(cell => cell.includes(keyword))
+                );
+
+                displayDataWithLinksAndNoNumbers(RTERows);
+            } else {
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const displayWWEButton = document.getElementById('displayWWEButton');
+
+            displayWWEButton.addEventListener('click', function () {
+                displayWWERows();
+            });
+        });
+
+        function displayWWERows() {
+            const keyword = '제주도';
+
+            if (excelData) {
+
+                const WWERows = excelData.filter(row =>
+                    row.some(cell => cell.includes(keyword))
+                );
+
+                displayDataWithLinksAndNoNumbers(WWERows);
+            } else {
+                console.log('파일을 선택하고 검색어를 입력해주세요.');
+            }
+        }
+
+
+        function displayDataWithLinksAndNoNumbers(data) {
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.innerHTML = '';
+
+            for (let i = 0; i < data.length; i++) {
+                const row = data[i];
+
+                const filteredRow = row.map(cell => isNaN(cell[0]) ? cell : cell.slice(1));
+
+                const processedRow = filteredRow.map(cell => {
+                    if (cell.startsWith('https://')) {
+                        return `<a href="${cell}" target="_blank">지도</a>`;
+                    }
+                    return cell;
+                });
+
+                const resultRow = displayFilteredRow(processedRow);
+                if (resultRow !== '') {
+                    const rowElement = document.createElement('div');
+                    rowElement.className = 'resultRow';
+                    rowElement.innerHTML = resultRow;
+                    resultContainer.appendChild(rowElement);
+                }
+            }
+        }
+
+        function clearOutput() {
+
+            var outputElement = document.getElementById("resultContainer");
+
+            outputElement.innerHTML = "";
+        }
+
+        function openNewWindow() {
+
+            window.open('https://www.youtube.com/embed/RdBnRzu8mOg?si=Kni9lj-R3_SCeDE_', '_blank', 'width=600,height=400,top=100,left=100,location=yes,toolbar=yes');
+        }
+
+    </script>
+
+</body>
+
+</html>
